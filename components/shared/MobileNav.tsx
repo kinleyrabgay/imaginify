@@ -10,20 +10,22 @@ import { Button } from "../ui/button";
 
 const MobileNav = () => {
   const pathname = usePathname();
+
   return (
     <header className="header">
-      <Link href="/" className="flex items-start gap-2 md:py-2">
+      <Link href="/" className="flex items-center gap-2 md:py-2">
         <Image
           src="/assets/images/logo-text.svg"
           alt="logo"
           width={180}
-          height={20}
+          height={28}
         />
       </Link>
 
       <nav className="flex gap-2">
         <SignedIn>
           <UserButton afterSignOutUrl="/" />
+
           <Sheet>
             <SheetTrigger>
               <Image
@@ -43,13 +45,16 @@ const MobileNav = () => {
                   height={23}
                 />
 
-                <ul className="sidebar-nav_elements">
+                <ul className="header-nav_elements">
                   {navLinks.map((link) => {
-                    const isActive = pathname === link.route;
+                    const isActive = link.route === pathname;
+
                     return (
                       <li
+                        className={`${
+                          isActive && "gradient-text"
+                        } p-18 flex whitespace-nowrap text-dark-700`}
                         key={link.route}
-                        className={`${isActive && "gradient-text"} p-18`}
                       >
                         <Link
                           className="sidebar-link cursor-pointer"
@@ -57,9 +62,9 @@ const MobileNav = () => {
                         >
                           <Image
                             src={link.icon}
+                            alt="logo"
                             width={24}
                             height={24}
-                            alt="logo"
                           />
                           {link.label}
                         </Link>
